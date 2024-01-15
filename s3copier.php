@@ -43,8 +43,9 @@ function copyToS3($localPath, $s3Path) {
                 'Key' => $s3Path,
                 'SourceFile' => $localPath,
             ]);
-            //echo "Файл $localPath успешно загружен в S3\n";
+            echo "Файл $localPath успешно загружен в S3 ";
             system("rm -rf $localPath");
+            echo "удален\n";
         } catch (AwsException $e) {
             echo "Ошибка при загрузке файла $localPath в S3: " . $e->getMessage() . "\n";
         }
