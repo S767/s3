@@ -48,7 +48,7 @@ function copyToS3($localPath, $s3Path) {
             system("rm -rf $localPath");
             echo " удален\n";
             $nn++;
-            die();
+            //die();
             if(!($nn%1000)) echo "$nn files\n\n";
         } catch (AwsException $e) {
             echo "Ошибка при загрузке файла $localPath в S3: " . $e->getMessage() . "\n";
