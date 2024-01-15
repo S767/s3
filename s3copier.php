@@ -4,7 +4,7 @@ require 'vendor/autoload.php';
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
 global $nn;
-$localDirectory = '/storage/tiktok'; // Локальная папка, которую вы хотите скопировать
+$localDirectory = '/storage/tiktok/'; // Локальная папка, которую вы хотите скопировать
 $bucketName = 'tiktok-images'; // Название бакета S3, в который вы хотите скопировать файлы
 
 // Создание клиента S3
@@ -43,10 +43,11 @@ function copyToS3($localPath, $s3Path) {
                 'Key' => $s3Path,
                 'SourceFile' => $localPath,
             ]);
-            echo "Файл $localPath успешно загружен в S3 ";
+            echo "Файл $localPath успешно загружен в S3  $s3Path";
             system("rm -rf $localPath");
             echo "удален\n";
             $nn++;
+            die();
             if(!($nn%1000)) echo "$nn files\n\n";
         } catch (AwsException $e) {
             echo "Ошибка при загрузке файла $localPath в S3: " . $e->getMessage() . "\n";
