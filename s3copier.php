@@ -66,6 +66,6 @@ function copyToS3($localPath, $s3Path) {
 }
 
 // Начинаем копирование с локальной директории "tiktok" в корневую директорию S3
-copyToS3($localDirectory, '');
+copyToS3($localDirectory, $s3Path);
 
 echo "Завершено.\n";
