@@ -3,7 +3,15 @@ require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 use Aws\Exception\AwsException;
+
+
 global $nn;
+
+$localDirectory = '/storage/tiktok/'.$_SERVER['argv'][1]; // Локальная папка, которую вы хотите скопировать
+
+echo $localDirectory."\n";
+die();
+
 $localDirectory = '/storage/tiktok'; // Локальная папка, которую вы хотите скопировать
 $bucketName = 'tiktok-images'; // Название бакета S3, в который вы хотите скопировать файлы
 
