@@ -12,7 +12,7 @@ $localDirectory = '/storage/tiktok/'.$_SERVER['argv'][1]; // Локальная 
 echo $localDirectory."\n";
 //die();
 
-$localDirectory = '/storage/tiktok'; // Локальная папка, которую вы хотите скопировать
+//$localDirectory = '/storage/tiktok'; // Локальная папка, которую вы хотите скопировать
 $bucketName = 'tiktok-images'; // Название бакета S3, в который вы хотите скопировать файлы
 
 // Создание клиента S3
