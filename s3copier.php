@@ -14,6 +14,7 @@ echo $localDirectory."\n";
 
 //$localDirectory = '/storage/tiktok'; // Локальная папка, которую вы хотите скопировать
 $bucketName = 'tiktok-images'; // Название бакета S3, в который вы хотите скопировать файлы
+$s3Path = $_SERVER['argv'][1];
 
 // Создание клиента S3
 $s3Client = new S3Client([
@@ -45,7 +46,7 @@ function copyToS3($localPath, $s3Path) {
         }
     } else {
         try {
-            $s3Path = ltrim($s3Path, '/');
+            //$s3Path = ltrim($s3Path, '/');
             // Загрузка файла в бакет S3
             $s3Client->putObject([
                 'Bucket' => $bucketName,
