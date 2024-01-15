@@ -37,15 +37,16 @@ function copyToS3($localPath, $s3Path) {
         }
     } else {
         try {
+            $s3Path = ltrim($s3Path, '/');
             // Загрузка файла в бакет S3
             $s3Client->putObject([
                 'Bucket' => $bucketName,
                 'Key' => $s3Path,
                 'SourceFile' => $localPath,
             ]);
-            echo "Файл $localPath успешно загружен в S3  $s3Path";
+            echo "Файл $localPath успешно загружен в S3 $s3Path";
             system("rm -rf $localPath");
-            echo "удален\n";
+            echo " удален\n";
             $nn++;
             die();
             if(!($nn%1000)) echo "$nn files\n\n";
