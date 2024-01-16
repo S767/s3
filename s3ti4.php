@@ -9,7 +9,7 @@ global $nn;
 if($_SERVER['argv'][1]) {
     $localDirectory = '/root/aparser/results/images/tiktok4/' . $_SERVER['argv'][1]; // Локальная папка, которую вы хотите скопировать
 } else {
-    $localDirectory = '/root/aparser/results/images/tiktok4/'; // Локальная папка, которую вы хотите скопировать
+    $localDirectory = '/root/aparser/results/images/tiktok4'; // Локальная папка, которую вы хотите скопировать
 }
 
 
