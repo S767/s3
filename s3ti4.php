@@ -6,8 +6,12 @@ use Aws\Exception\AwsException;
 
 
 global $nn;
+if($_SERVER['argv'][1]) {
+    $localDirectory = '/root/aparser/results/images/tiktok4/' . $_SERVER['argv'][1]; // Локальная папка, которую вы хотите скопировать
+} else {
+    $localDirectory = '/root/aparser/results/images/tiktok4/'; // Локальная папка, которую вы хотите скопировать
+}
 
-$localDirectory = '/root/aparser/results/images/tiktok4/'.$_SERVER['argv'][1]; // Локальная папка, которую вы хотите скопировать
 
 echo $localDirectory."\n";
 //die();
@@ -46,7 +50,7 @@ function copyToS3($localPath, $s3Path) {
         }
     } else {
         try {
-            //$s3Path = ltrim($s3Path, '/');
+            $s3Path = ltrim($s3Path, '/');
             // Загрузка файла в бакет S3
 
             $s3Client->putObject([
