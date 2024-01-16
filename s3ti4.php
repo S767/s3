@@ -31,7 +31,7 @@ $s3Client = new S3Client([
     ],
     'use_path_style_endpoint' => true,
     'http' => [
-        'timeout' => 1, // Установите желаемый таймаут (в секундах)
+        'timeout' => 5, // Установите желаемый таймаут (в секундах)
     ],
 ]);
 
