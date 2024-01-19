@@ -32,7 +32,7 @@ func main() {
 
     uploader := s3manager.NewUploader(sess)
 
-    maxConcurrency := 100 // Максимальное количество одновременных горутин
+    maxConcurrency := 30 // Максимальное количество одновременных горутин
     sem := make(chan bool, maxConcurrency)
 
     var wg sync.WaitGroup
