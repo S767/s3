@@ -35,35 +35,48 @@ $s3Client = new S3Client([
     ],
 ]);
 
+function isEmptyDir($dir) {
+    if (!is_readable($dir)) return NULL;
+    return (count(scandir($dir)) == 2); // '.' and '..' are always present
+}
+
+
 // Рекурсивная функция для копирования файлов и папок
 function copyToS3($localPath, $s3Path) {
     global $s3Client, $bucketName, $nn;
 
-    // Проверка, является ли текущий элемент файлом или директорией
     if (is_dir($localPath)) {
         $objects = scandir($localPath);
         foreach ($objects as $object) {
             if ($object != "." && $object != "..") {
-                // Рекурсивно вызываем эту функцию для поддиректорий
                 copyToS3("$localPath/$object", "$s3Path/$object");
             }
+        }
+        // После обработки всех файлов в каталоге, проверяем, пуст ли он
+        if (isEmptyDir($localPath)) {
+            rmdir($localPath); // Удаляем каталог, если он пуст
+            echo "Пустой каталог $localPath удален\n";
         }
     } else {
         try {
             $s3Path = ltrim($s3Path, '/');
-            // Загрузка файла в бакет S3
-
             $s3Client->putObject([
                 'Bucket' => $bucketName,
                 'Key' => $s3Path,
                 'SourceFile' => $localPath,
             ]);
             echo "Файл $localPath успешно загружен в S3 $s3Path";
-            system("rm -rf $localPath");
+            unlink($localPath); // Удаление файла
             echo " удален\n";
             $nn++;
-            //die();
             if(!($nn%1000)) echo "$nn files\n\n";
+
+            // Проверка и удаление родительского каталога, если он пуст
+            $parentDir = dirname($localPath);
+            if (isEmptyDir($parentDir)) {
+                rmdir($parentDir);
+                echo "Пустой родительский каталог $parentDir удален\n";
+            }
         } catch (AwsException $e) {
             echo "Ошибка при загрузке файла $localPath в S3: " . $e->getMessage() . "\n";
         }
